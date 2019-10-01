@@ -4,5 +4,6 @@
 
 void timer_init() {
 	// ...
+//hejhej
 }
 
