@@ -11,6 +11,14 @@ void motors_init();
 
 void motor_control(uint8_t motor, uint8_t direction, uint8_t speed);
 
+void motor_forward(uint8_t speed);
+
+void motor_backwards(uint8_t speed);
+
+void motor_turn(uint8_t speed_A, uint8_t speed_B);
+
+void motor_spin(uint8_t direction, uint8_t speed);
+
 void motor_full_stop();
 
 #endif // _MOTORS_H
