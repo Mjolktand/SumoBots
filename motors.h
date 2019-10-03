@@ -8,11 +8,6 @@
 
 #define MOTOR_A 0
 #define MOTOR_B 1
-//Riktning för motor B inverterad pga. motorlödning
-#define MOTOR_A_BACKWARD 0
-#define MOTOR_A_FORWARD 1
-#define MOTOR_B_BACKWARD 1
-#define MOTOR_B_FORWARD 0
 
 void motors_init();
 
