@@ -1,5 +1,4 @@
 #include <avr/io.h>
-#include <stdio.h>
 
 #include "motors.h"
 
@@ -17,7 +16,6 @@ void motor_single_control(uint8_t motor, uint8_t direction, uint8_t speed)
 {
 	if (motor == MOTOR_A)
 	{
-		printf("Motor A\n");
 		if (direction == MOTOR_A_FORWARD)
 		{
 			PORTB |= (1 << PORTB4);
@@ -31,7 +29,6 @@ void motor_single_control(uint8_t motor, uint8_t direction, uint8_t speed)
 	}
 	else if (motor == MOTOR_B)
 	{
-		printf("Motor B\n");
 		if (direction == MOTOR_B_FORWARD)
 		{
 			PORTB |= (1 << PORTB5);
