@@ -18,11 +18,14 @@
 void main (void)
 {
 	linesens_init();
+	rangesensor_init();
 	uart_init();
+	uint8_t cm = 0;
 
 	while(1)
 	{
-		linesens_read();
+		cm = rangesensor_read_cm();
+		printf("%d\n", cm);
 		_delay_ms(1000);
 	}
 }

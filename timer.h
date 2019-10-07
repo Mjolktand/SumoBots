@@ -3,7 +3,7 @@
 
 void timer0_stop();
 
-void timer0_start_25000us();
+void timer0_start_2500us();
 
 void timer0_delay_10us();
 
