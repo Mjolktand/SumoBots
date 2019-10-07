@@ -12,22 +12,17 @@
 #include "timer.h"
 #include "util.h"
 #include "motors.h"
+#include "linesensor.h"
+#include "rangesensor.h"
 
 void main (void)
 {
-	motors_init();
-	_delay_ms(5000);
-	motor_straight(MOTORS_BACKWARD, 100);
-	_delay_ms(2000);
-	motor_straight(MOTORS_FORWARD, 255);
-	_delay_ms(3000);
-	motor_turn(MOTORS_BACKWARD, 100, 200);
-	_delay_ms(2000);
-	motor_full_stop();
-	_delay_ms(2000);
-	motor_spin(MOTORS_CLOCKWISE, 100);
-	_delay_ms(2000);
-	motor_spin(MOTORS_COUNTER_CLOCKWISE, 255);
-	_delay_ms(3000);
-	motor_full_stop();
+	linesens_init();
+	uart_init();
+
+	while(1)
+	{
+		linesens_read();
+		_delay_ms(1000);
+	}
 }

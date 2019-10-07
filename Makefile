@@ -22,7 +22,9 @@ SOURCES = \
 		  timer.c \
 		  i2c.c \
 		  util.c \
-			motors.c
+			motors.c \
+			linesensor.c \
+			rangesensor.c
 
 OBJS = $(SOURCES:.c=.o)
 
