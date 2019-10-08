@@ -1,6 +1,8 @@
 #ifndef _TIMER_H_
 #define _TIMER_H_
 
+void timer1_start();
+
 void timer0_stop();
 
 void timer0_start_2500us();

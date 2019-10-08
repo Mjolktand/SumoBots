@@ -1,6 +1,9 @@
 #ifndef _LINESENSOR_H_
 #define _LINESENSOR_H_
 
+static uint8_t sensorValues[] = {0, 0, 0, 0, 0, 0};
+
+
 void linesens_on();
 
 void linesens_off();
@@ -11,9 +14,10 @@ void linesens_charge();
 
 void linesens_print_values();
 
-uint8_t* linesens_read();
+void linesens_read();
 
 void linesens_10us_delay();
 
+uint8_t linesens_check_results();
 
 #endif // _LINESENSOR_H_

@@ -4,7 +4,6 @@
 #include "linesensor.h"
 #include "timer.h"
 
-static uint8_t sensorValues[] = {0, 0, 0, 0, 0, 0};
 
 //sensor pins: 4, 5, 6, 7, 8, 9
 //LEDon pin: 10
@@ -37,7 +36,7 @@ void linesens_charge()
   PORTB &= ~((1 << PORTB0) | (1 << PORTB1));
 }
 
-uint8_t* linesens_read()
+void linesens_read()
 {
   linesens_on();
 
@@ -74,7 +73,18 @@ uint8_t* linesens_read()
 
   timer0_stop();
   linesens_off();
-  return sensorValues;
+}
+
+uint8_t linesens_check_results()
+{
+  for(uint8_t i; i < 6; i++)
+  {
+    if(sensorValues[i] != 0)
+    {
+      return 1;
+    }
+  }
+  return 0;
 }
 
 void linesens_print_values()

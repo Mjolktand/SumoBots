@@ -1,13 +1,11 @@
 #include <avr/io.h>
-
 #include "timer.h"
 
 void timer1_start()
 {
   TCCR1B |= (1 << WGM12);
   OCR1A = 155;
-  // OCIE1A ??
-  TIMSK1 |= (1 << OCIEA); //compare match A interrupt
+  TIMSK1 |= (1 << OCIE1A); //compare match A interrupt
   TCCR1B  |= (1 << CS12) | (1 << CS10);
 }
 

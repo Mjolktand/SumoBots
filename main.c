@@ -13,21 +13,37 @@
 #include "util.h"
 #include "motors.h"
 #include "linesensor.h"
+#include "rangesensor.h"
+#include "bot_logic.h"
+
+
+
 
 void main (void)
 {
 	uart_init();
 	linesens_init();
-	uint8_t *korv;
-	while(1){
-		korv = linesens_read();
-		printf("value 1: %d value 2: %d \n",korv[0], korv[5]);
-		_delay_ms(1000);
-	}
+	motors_init();
+	timer1_start();
+	bot_instructions();
 }
+
 
 
 ISR (TIMER1_COMPA_vect)
 {
-    // action to be done every 10 millisec
+	 printf("checking sensor.. \n");
+	 linesens_read();
+
+	 if(linesens_check_results())
+	 {
+		 printf("Line detected!! \n");
+		 alert = 1;
+		 instruction = 1;
+	 }
+	 timer_counter++;
+	 if(timer_counter >= 50000)
+	 {
+		 timer_counter = 0;
+	 }
 }
