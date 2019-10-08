@@ -2,6 +2,15 @@
 
 #include "timer.h"
 
+void timer1_start()
+{
+  TCCR1B |= (1 << WGM12);
+  OCR1A = 155;
+  // OCIE1A ??
+  TIMSK1 |= (1 << OCIEA); //compare match A interrupt
+  TCCR1B  |= (1 << CS12) | (1 << CS10);
+}
+
 void timer0_stop()
 {
   TCCR0B &= ~((1 << CS02) | (1 << CS01) | (1 << CS00));

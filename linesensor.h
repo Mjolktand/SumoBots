@@ -9,9 +9,9 @@ void linesens_init();
 
 void linesens_charge();
 
-void linesens_print_values(uint8_t sensorval[]);
+void linesens_print_values();
 
-void linesens_read();
+uint8_t* linesens_read();
 
 void linesens_10us_delay();
 
