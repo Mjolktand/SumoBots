@@ -23,8 +23,12 @@ SOURCES = \
 		  i2c.c \
 		  util.c \
 			motors.c \
+<<<<<<< HEAD
 			linesensor.c \
 			rangesensor.c
+=======
+			linesensor.c
+>>>>>>> b04e321... commit pga merge
 
 OBJS = $(SOURCES:.c=.o)
 

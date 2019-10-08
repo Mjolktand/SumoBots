@@ -13,19 +13,21 @@
 #include "util.h"
 #include "motors.h"
 #include "linesensor.h"
-#include "rangesensor.h"
 
 void main (void)
 {
-	linesens_init();
-	rangesensor_init();
 	uart_init();
-	uint8_t cm = 0;
-
-	while(1)
-	{
-		cm = rangesensor_read_cm();
-		printf("%d\n", cm);
+	linesens_init();
+	uint8_t *korv;
+	while(1){
+		korv = linesens_read();
+		printf("value 1: %d value 2: %d \n",korv[0], korv[5]);
 		_delay_ms(1000);
 	}
+}
+
+
+ISR (TIMER1_COMPA_vect)
+{
+    // action to be done every 10 millisec
 }
