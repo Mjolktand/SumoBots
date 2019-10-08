@@ -5,6 +5,8 @@
 #include "timer.h"
 
 
+uint8_t sensorValues[] = {0, 0, 0, 0, 0, 0};
+
 //sensor pins: 4, 5, 6, 7, 8, 9
 //LEDon pin: 10
 

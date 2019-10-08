@@ -33,8 +33,5 @@ void timer0_delay_10us()
 	{
     ;
 	}
-//set prescaler to 0, timer stopped
-  TCCR0B &= ~(1 << CS01);
-  //reset check flag
-  TIFR0 |= (1 << OCF0A);
+  timer0_stop();
 }

@@ -21,11 +21,18 @@
 
 void main (void)
 {
+	//sei();
 	uart_init();
 	linesens_init();
-	motors_init();
-	timer1_start();
-	bot_instructions();
+	//motors_init();
+	//timer1_start();
+	//bot_instructions();
+
+	while(1){
+		linesens_read();
+		linesens_print_values();
+		_delay_ms(1000);
+	}
 }
 
 
@@ -34,7 +41,7 @@ ISR (TIMER1_COMPA_vect)
 {
 	 printf("checking sensor.. \n");
 	 linesens_read();
-
+	 linesens_print_values();
 	 if(linesens_check_results())
 	 {
 		 printf("Line detected!! \n");
