@@ -1,6 +1,7 @@
 #ifndef _LINESENSOR_H_
 #define _LINESENSOR_H_
 
+static uint8_t sensorValues[] = {0, 0, 0, 0, 0, 0};
 
 void linesens_on();
 

@@ -5,7 +5,6 @@
 #include "timer.h"
 
 
-uint8_t sensorValues[] = {0, 0, 0, 0, 0, 0};
 
 //sensor pins: 4, 5, 6, 7, 8, 9
 //LEDon pin: 10
@@ -47,7 +46,10 @@ void linesens_read()
     }
 
   linesens_charge();
-  timer0_start_2500us();
+
+  TCCR0A |= (1 << WGM01);
+  OCR0A = 155;
+  TCCR0B |= (1 << CS02); //starts 2500us timer (16 us per tick)
 
   DDRD &= ~((1 << DDD4) | (1 << DDD5) | (1 << DDD6) | (1 << DDD7));
   DDRB &= ~((1 << DDB0) | (1 << DDB1)); //sets pins to inputs
