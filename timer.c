@@ -1,7 +1,7 @@
 #include <avr/io.h>
 #include "timer.h"
 
-void timer1_start()
+void timer1_init()
 {
   TCCR1B |= (1 << WGM12);
   OCR1A = 155;

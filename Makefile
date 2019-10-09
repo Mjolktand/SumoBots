@@ -25,8 +25,11 @@ SOURCES = \
 			motors.c \
 			linesensor.c \
 			rangesensor.c \
-			bot_logic.c
-			
+			led.c \
+			button.c \
+			bot_logic.c \
+			bot2_logic.c
+
 OBJS = $(SOURCES:.c=.o)
 
 all: $(OUT)

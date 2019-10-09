@@ -4,7 +4,21 @@
 #include "linesensor.h"
 #include "motors.h"
 #include "bot_logic.h"
+#include "motors.h"
+#include "rangesensor.h"
+#include "timer.h"
+#include "led.h"
+#include "button.h"
 
+void bot_init()
+{
+	linesens_init();
+	rangesensor_init();
+	motors_init();
+	led_init();
+	button_init();
+	timer1_init();
+}
 
 void bot_instructions()
 {

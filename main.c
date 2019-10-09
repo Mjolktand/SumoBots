@@ -5,52 +5,33 @@
 #include <string.h>
 #include <util/delay.h>
 
-#include "adc.h"
 #include "gpio.h"
-#include "i2c.h"
 #include "serial.h"
 #include "timer.h"
 #include "util.h"
-#include "motors.h"
-#include "linesensor.h"
-#include "rangesensor.h"
+
 #include "bot_logic.h"
-
-
-
+#include "button.h"
 
 void main (void)
 {
-	//sei();
-	uart_init();
-	linesens_init();
-	//motors_init();
-	//timer1_start();
-	//bot_instructions();
+	sei();
+	bot_init(); //bot2_init for the second bot
 
-	while(1){
-		linesens_read();
-		linesens_print_values();
-		_delay_ms(1000);
+	while(1)
+	{
+		if (button_logic_start())
+		{
+			bot_instructions(); //bot2_logic for the second bot
+		}
 	}
 }
 
-
-
 ISR (TIMER1_COMPA_vect)
 {
-	 printf("checking sensor.. \n");
-	 linesens_read();
-	 linesens_print_values();
-	 if(linesens_check_results())
-	 {
-		 printf("Line detected!! \n");
-		 alert = 1;
-		 instruction = 1;
-	 }
-	 timer_counter++;
-	 if(timer_counter >= 50000)
-	 {
-		 timer_counter = 0;
-	 }
+	timer_counter++;
+	if(timer_counter >= 50000)
+	{
+		timer_counter = 0;
+	}
 }
