@@ -10,19 +10,19 @@
 #include "timer.h"
 #include "util.h"
 
-#include "bot_logic.h"
+#include "bot2_logic.h"
 #include "button.h"
 
 void main (void)
 {
 	sei();
-	bot_init(); //bot2_init for the second bot
+	bot2_init(); //bot2_init for the second bot
 
 	while(1)
 	{
 		if (button_logic_start())
 		{
-			bot_instructions(); //bot2_logic for the second bot
+			bot2_instructions(); //bot2_logic for the second bot
 		}
 	}
 }

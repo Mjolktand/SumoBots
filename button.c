@@ -1,4 +1,5 @@
 #include <avr/io.h>
+#include <util/delay.h>
 
 #include "led.h"
 
@@ -13,6 +14,7 @@ uint8_t button_logic_start()
 
 	if (PIND & (1 << PIND2))
 	{
+		_delay_ms(100);
 		button_status = 1;
 		led_2_on();
 	}
@@ -31,6 +33,7 @@ uint8_t button_logic_stop()
 
 	if (PIND & (1 << PIND2))
 	{
+		_delay_ms(100);
 		button_status = 1;
 		led_1_on();
 	}
