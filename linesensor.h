@@ -19,4 +19,6 @@ void linesens_10us_delay();
 
 uint8_t linesens_check_results();
 
+uint8_t line_bot_set_data();
+
 #endif // _LINESENSOR_H_

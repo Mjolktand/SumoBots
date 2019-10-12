@@ -1,12 +1,21 @@
 #ifndef _BOT_LOGIC_H_
 #define _BOT_LOGIC_H
 
-static volatile uint16_t timer_counter = 0;
-static uint16_t counter_compare = 0;
-static volatile uint8_t instruction = 0;
-static volatile uint8_t alert = 0;
+volatile uint16_t timer_counter;
 
 void bot_init();
+
+void bot_wait();
+
+void bot_wait_while_rangechecking();
+
+void bot_attack();
+
+void bot_check_button();
+
+void bot_spin_scan();
+
+void bot_rangecheck();
 
 void bot_instructions();
 
