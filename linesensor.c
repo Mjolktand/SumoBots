@@ -4,7 +4,7 @@
 #include "linesensor.h"
 #include "timer.h"
 
-
+volatile uint8_t sensorValues[] = {0, 0, 0, 0, 0, 0};
 
 //sensor pins: 4, 5, 6, 7, 8, 9
 //LEDon pin: 10
@@ -79,22 +79,6 @@ void linesens_read()
   linesens_off();
 }
 
-uint8_t line_bot_set_data(){
-  uint8_t line_pos;
-	if(!linesens_check_results){
-		line_pos = 0;
-	}
-	else if(sensorValues[2] != 0 || sensorValues[3] != 0){
-		line_pos = 1;
-	}
-	else if(sensorValues[0] != 0 || sensorValues [1] != 0){
-		line_pos = 2;
-	}
-	else if(sensorValues [4] != 0 || sensorValues[5] != 0){
-		line_pos = 3;
-	}
-  return line_pos;
-}
 
 uint8_t linesens_check_results()
 {

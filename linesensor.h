@@ -1,7 +1,7 @@
 #ifndef _LINESENSOR_H_
 #define _LINESENSOR_H_
 
-static uint8_t sensorValues[] = {0, 0, 0, 0, 0, 0};
+volatile uint8_t sensorValues[6];
 
 void linesens_on();
 
@@ -19,6 +19,5 @@ void linesens_10us_delay();
 
 uint8_t linesens_check_results();
 
-uint8_t line_bot_set_data();
 
 #endif // _LINESENSOR_H_

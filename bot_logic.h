@@ -3,6 +3,8 @@
 
 volatile uint16_t timer_counter;
 
+void bot_set_line_data();
+
 void bot_init();
 
 void bot_wait();
