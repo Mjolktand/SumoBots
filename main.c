@@ -9,6 +9,7 @@
 #include "serial.h"
 #include "timer.h"
 #include "util.h"
+#include "motors.h"
 
 #include "bot2_logic.h"
 #include "button.h"
@@ -17,6 +18,7 @@ void main (void)
 {
 	sei();
 	bot2_init(); //bot2_init for the second bot
+	uart_init();
 
 	while(1)
 	{
@@ -29,9 +31,9 @@ void main (void)
 
 ISR (TIMER1_COMPA_vect)
 {
-	timer_counter++;
-	if(timer_counter >= 50000)
+	timer_counter2++;
+	if(timer_counter2 >= 50000)
 	{
-		timer_counter = 0;
+		timer_counter2 = 0;
 	}
 }

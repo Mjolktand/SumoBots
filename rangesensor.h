@@ -3,6 +3,6 @@
 
 void rangesensor_init();
 
-uint8_t rangesensor_read_cm();
+uint8_t rangesensor_read();
 
 #endif // _RANGESENSOR_H

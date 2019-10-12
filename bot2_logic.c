@@ -10,6 +10,8 @@
 #include "led.h"
 #include "button.h"
 
+static enum INSTRUCTION instruction = MOVE_FORWARDS;
+static uint16_t timer_compare = 0;
 
 void bot2_init()
 {
@@ -22,11 +24,44 @@ void bot2_init()
 	led_1_on();
 }
 
+void linesensor_activated()
+{
+	motor_straight(MOTORS_BACKWARD, 200);
+	timer_compare = 100;
+	timer_counter2 = 0;
+	instruction = MOVE_SPIN;
+}
+
+void rangesensor_activated()
+{
+	move_forwards();
+}
+
+void move_spin()
+{
+	if(timer_counter2 >= timer_compare)
+	{
+		motor_spin(MOTORS_CLOCKWISE, 250);
+		timer_compare = 150;
+		timer_counter2 = 0;
+		instruction = MOVE_FORWARDS;
+	}
+}
+
+void move_forwards()
+{
+	if(timer_counter2 >= timer_compare)
+	{
+		motor_straight(MOTORS_FORWARD, 255);
+		timer_compare = 200;
+		timer_counter2 = 0;
+		instruction = MOVE_SPIN;
+	}
+}
+
 void bot2_instructions()
 {
-	static enum INSTRUCTION instruction = 0;
-	static uint16_t timer_compare = 0;
-	uint8_t cm = 0;
+	uint8_t range = 0;
 
 	while (1)
 	{
@@ -35,42 +70,36 @@ void bot2_instructions()
 		{
 			instruction = LINESENSOR_ACTIVATED;
 		}
-		else if (cm = rangesensor_read_cm() > 0 && cm < 40)
+		else
 		{
-			instruction = RANGESENSOR_ACTIVATED;
+			range = rangesensor_read();
+			if (range > 30 && range < 130)
+			{
+				instruction = RANGESENSOR_ACTIVATED;
+				range = 0;
+			}
 		}
 
 		switch (instruction)
 		{
 			case LINESENSOR_ACTIVATED:
-				motor_straight(MOTORS_BACKWARD, 255);
-				timer_compare = 100;
-				timer_counter = 0;
-				instruction = MOVE_SPIN;
+				linesensor_activated();
+				break;
+
+			case RANGESENSOR_ACTIVATED:
+				rangesensor_activated();
 				break;
 
 			case MOVE_SPIN:
-				if(timer_counter >= timer_compare)
-				{
-					motor_spin(MOTORS_CLOCKWISE, 150);
-					timer_compare = 100;
-					timer_counter = 0;
-					instruction = MOVE_FORWARDS;
-				}
+				move_spin();
 				break;
 
 			case MOVE_FORWARDS:
-				if(timer_counter >= timer_compare)
-				{
-					motor_straight(MOTORS_FORWARD, 255);
-					timer_compare = 200;
-					timer_counter = 0;
-					instruction = MOVE_SPIN;
-				}
+				move_forwards();
 				break;
 
 			default:
-				motor_straight(MOTORS_FORWARD, 255);
+				move_forwards();
 				break;
 		}
 

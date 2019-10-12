@@ -8,7 +8,7 @@ void rangesensor_init()
 	DDRC &= ~(1 << DDC0);
 }
 
-uint8_t rangesensor_read_cm()
+uint8_t rangesensor_read()
 {
 	uint8_t range_value;
 	PORTC |= (1 << PORTC1);
@@ -24,6 +24,6 @@ uint8_t rangesensor_read_cm()
 	}
 	timer0_stop();
 
-	//valid range return 1 to 41 cm;
-	return range_value * 16 / 58;
+	//valid range return 1 to 155;
+	return range_value;
 }
