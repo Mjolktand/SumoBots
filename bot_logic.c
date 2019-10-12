@@ -39,8 +39,8 @@ void bot_check_button()
 
 void bot_rangecheck()
 {
-	uint8_t range = rangesensor_read_cm();
-	if(range > 10 && range < 40)
+	uint8_t range = rangesensor_read();
+	if(range > 30 && range < 130)
 	{
 		motor_straight(MOTORS_FORWARD, 255);
 		enemy_detected = 1;
@@ -67,8 +67,8 @@ void bot_wait_while_rangechecking(uint16_t timer_compare)
 	timer_counter = 0;
 	while(timer_counter < timer_compare && enemy_detected == 0)
 	{
-			bot_check_button();
-			bot_rangecheck();
+		bot_check_button();
+		bot_rangecheck();
 	}
 }
 
@@ -124,52 +124,56 @@ void bot_set_line_data()
 }
 
 void bot_instructions()
- {
-   while(1)
-   {
- 		linesens_read();
- 		bot_set_line_data();
- 		//linesens_print_values();
- 		if(line_pos == NONE)
+{
+  while(1)
+  {
+		linesens_read();
+		bot_set_line_data();
+		//linesens_print_values();
+		if(line_pos == NONE)
 		{
- 			motor_straight(MOTORS_BACKWARD, 150);
- 		}
- 		else if(line_pos == CENTER)
+			motor_straight(MOTORS_BACKWARD, 150);
+		}
+		else if(line_pos == CENTER)
 		{
- 			motor_straight(MOTORS_BACKWARD, 255);
- 			bot_wait(200);
- 			motor_spin(MOTORS_BACKWARD, 255);
- 			bot_wait(500);
- 			motor_straight(MOTORS_BACKWARD, 150);
- 		}
- 		else if(line_pos == LEFT)
+			motor_straight(MOTORS_BACKWARD, 255);
+			bot_wait(200);
+			motor_spin(MOTORS_BACKWARD, 255);
+			bot_wait(500);
+			motor_straight(MOTORS_BACKWARD, 150);
+		}
+		else if(line_pos == LEFT)
 		{
- 			motor_spin(MOTORS_CLOCKWISE, 255);
- 			bot_wait(400);
+			motor_spin(MOTORS_CLOCKWISE, 255);
+			bot_wait(400);
+			motor_straight(MOTORS_BACKWARD, 150);
+		}
+		else if(line_pos == RIGHT)
+		{
+			motor_spin(MOTORS_COUNTER_CLOCKWISE, 255);
+			bot_wait(400);
+			motor_straight(MOTORS_BACKWARD, 150);
+		}
 
- 			motor_straight(MOTORS_BACKWARD, 150);
- 		}
- 		else if(line_pos == RIGHT)
+		bot_rangecheck();
+
+		if(enemy_detected == 1)
 		{
- 			motor_spin(MOTORS_COUNTER_CLOCKWISE, 255);
- 			bot_wait(400);
- 			motor_straight(MOTORS_BACKWARD, 150);
- 		}
- 		bot_rangecheck();
- 		if(enemy_detected == 1)
+			bot_attack();
+		}
+
+		bot_check_button();
+
+		if(standby == 1)
 		{
- 			bot_attack();
- 		}
- 		bot_check_button();
- 		if(standby == 1)
+			standby = 0;
+			return;
+		}
+
+		if(big_count > 3000)
 		{
- 			standby = 0;
- 			return;
- 		}
- 		 if(big_count > 3000)
-		 {
- 		 	big_count = 0;
- 		 	bot_spin_scan();
- 		 }
- }
- }
+			big_count = 0;
+			bot_spin_scan();
+		}
+	}
+}

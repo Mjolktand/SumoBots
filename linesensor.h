@@ -15,8 +15,6 @@ void linesens_print_values();
 
 void linesens_read();
 
-void linesens_10us_delay();
-
 uint8_t linesens_check_results();
 
 
