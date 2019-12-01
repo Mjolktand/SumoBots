@@ -3,49 +3,69 @@
 #include <avr/pgmspace.h>
 #include <stdio.h>
 #include <string.h>
+#include <util/delay.h>
 
 #include "gpio.h"
 #include "serial.h"
 #include "timer.h"
 #include "util.h"
 #include "motors.h"
-#include "bot_logic.h" //use for first bot
-//#include "bot2_logic.h" //use for second bot
 #include "button.h"
+
+#define BOT2
+
+#ifdef BOT1
+	#include "bot_logic.h"
+#endif
+
+#ifdef BOT2
+	#include "bot2_logic.h"
+#endif
 
 void main (void)
 {
 	sei();
-	bot_init(); //use for first bot
-	//bot2_init(); //use for second bot
 	uart_init();
+
+	#ifdef BOT1
+		bot_init();
+	#endif
+	#ifdef BOT2
+		bot2_init();
+	#endif
 
 	while(1)
 	{
 		if (button_logic_start())
 		{
-			bot_instructions(); //use for first bot
-			//bot2_instructions(); //use for second bot
+			#ifdef BOT1
+				bot_instructions();
+			#endif
+			#ifdef BOT2
+				bot2_instructions();
+			#endif
 		}
 	}
 }
 
-//use for first bot
-ISR (TIMER1_COMPA_vect)
-{
-	timer_counter++;
-	if(timer_counter >= 50000)
+#ifdef BOT1
+	ISR (TIMER1_COMPA_vect)
 	{
-		timer_counter = 0;
+		timer_counter++;
+		if(timer_counter >= 50000)
+		{
+			timer_counter = 0;
+		}
 	}
-}
+#endif
 
-//use for second bot
-/*ISR (TIMER1_COMPA_vect)
-{
-	timer_counter2++;
-	if(timer_counter2 >= 50000)
+#ifdef BOT2
+	ISR (TIMER1_COMPA_vect)
 	{
-		timer_counter2 = 0;
+		timer_counter2++;
+		if(timer_counter2 >= 50000)
+		{
+			timer_counter2 = 0;
+		}
 	}
-}*/
+#endif
